@@ -3477,7 +3477,12 @@ void switch_aud_to_mplayerX(boolean set_in_prefs, const char *player) {
     }
   }
 
-  prefs->audio_player=AUD_PLAYER_MPLAYER;
+  if (!strcmp(player,"mplayer"))
+    prefs->audio_player=AUD_PLAYER_MPLAYER;
+  else if (!strcmp(player,"mplayer2"))
+    prefs->audio_player=AUD_PLAYER_MPLAYER2;
+  else
+    prefs->audio_player=AUD_PLAYER_MPV;
   get_pref_default("mplayer_audio_command",prefs->audio_play_command,256);
   if (set_in_prefs) set_pref("audio_player",player);
   lives_snprintf(prefs->aplayer,512,"%s",player);
@@ -5251,4 +5256,8 @@ lives_cancel_t check_for_bad_ffmpeg(void) {
     return CANCEL_ERROR;
   }
   return CANCEL_NONE;
+}
+
+boolean has_mplayerX(capability *capable) {
+  return (capable->has_mplayer || capable->has_mplayer2 || capable->has_mpv);
 }

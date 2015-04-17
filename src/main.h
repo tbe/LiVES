@@ -670,7 +670,7 @@ typedef struct {
   boolean has_autolives;
   boolean has_mplayer;
   boolean has_mplayer2;
-  boolean has_mvp;
+  boolean has_mpv;
   boolean has_convert;
   boolean has_composite;
   boolean has_identify;
@@ -1260,6 +1260,8 @@ void fastsrand(uint32_t seed);
 int lives_list_strcmp_index(LiVESList *list, livesconstpointer data);
 
 lives_cancel_t check_for_bad_ffmpeg(void);
+
+boolean has_mplayerX(capability *capable);
 
 // plugins.c
 LiVESList *get_external_window_hints(lives_rfx_t *rfx);
