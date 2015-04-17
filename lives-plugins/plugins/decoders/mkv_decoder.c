@@ -1624,9 +1624,6 @@ static int lives_mkv_read_header(lives_clip_data_t *cdata) {
   case CODEC_ID_THEORA  :
     sprintf(cdata->video_name,"%s","theora");
     break;
-  case CODEC_ID_SNOW  :
-    sprintf(cdata->video_name,"%s","snow");
-    break;
   case CODEC_ID_DIRAC  :
     sprintf(cdata->video_name,"%s","dirac");
     break;

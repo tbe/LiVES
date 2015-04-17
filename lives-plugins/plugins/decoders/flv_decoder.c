@@ -1017,6 +1017,7 @@ static boolean attach_stream(lives_clip_data_t *cdata, boolean isclone) {
         codec = avcodec_find_decoder(CODEC_ID_VP6F);
         priv->pack_offset=2;
         break;
+      /*
       case FLV_CODECID_VP6A  :
         codec = avcodec_find_decoder(CODEC_ID_VP6A);
         priv->ctx = ctx = avcodec_alloc_context3(codec);
@@ -1034,6 +1035,7 @@ static boolean attach_stream(lives_clip_data_t *cdata, boolean isclone) {
 
         priv->pack_offset=2;
         break;
+      */
       case FLV_CODECID_H264:
         // broken....
         sprintf(cdata->video_name,"%s","h264");
