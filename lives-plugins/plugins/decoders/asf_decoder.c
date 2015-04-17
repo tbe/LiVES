@@ -64,6 +64,7 @@ const char *plugin_version="LiVES asf/wmv decoder version 1.1";
 #include "decplugin.h"
 #include "libav_helper.h"
 
+#include "dec_helper.h"
 #include "asf_decoder.h"
 
 static enum CodecID ff_codec_get_id(const AVCodecTag *tags, unsigned int tag) {
@@ -2348,35 +2349,8 @@ seek_skip:
 #ifndef IS_MINGW
 
   if (cdata->fps==0.||cdata->fps==1000.) {
-    // use mplayer to get fps if we can...it seems to have some magical way
-    char cmd[1024];
-    char tmpfname[32];
-    int ofd;
-
-    sprintf(tmpfname,"/tmp/mkvdec=XXXXXX");
-    ofd=mkstemp(tmpfname);
-    if (ofd!=-1) {
-      int res;
-      snprintf(cmd,1024,"LANGUAGE=en LANG=en mplayer \"%s\" -identify -frames 0 2>/dev/null | grep ID_VIDEO_FPS > %s",cdata->URI,tmpfname);
-      res=system(cmd);
-
-      if (res) {
-        snprintf(cmd,1024,"LANGUAGE=en LANG=en mplayer2 \"%s\" -identify -frames 0 2>/dev/null | grep ID_VIDEO_FPS > %s",cdata->URI,tmpfname);
-        res=system(cmd);
-      }
-
-      if (!res) {
-        char buffer[1024];
-        ssize_t bytes=read(ofd,buffer,1024);
-        memset(buffer+bytes,0,1);
-        if (!(strncmp(buffer,"ID_VIDEO_FPS=",13))) {
-          cdata->fps=strtod(buffer+13,NULL);
-        }
-      }
-
-      close(ofd);
-      unlink(tmpfname);
-    }
+    int res = get_fps(cdata->URI);
+    if (res >= 0) cdata->fps = res;
   }
 
 #endif
