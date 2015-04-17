@@ -670,6 +670,7 @@ typedef struct {
   boolean has_autolives;
   boolean has_mplayer;
   boolean has_mplayer2;
+  boolean has_mvp;
   boolean has_convert;
   boolean has_composite;
   boolean has_identify;
@@ -1168,8 +1169,11 @@ void switch_to_mplayer(void);
 void switch_aud_to_sox(boolean set_pref);
 boolean switch_aud_to_jack(void);
 boolean switch_aud_to_pulse(void);
-void switch_aud_to_mplayer(boolean set_pref);
-void switch_aud_to_mplayer2(boolean set_pref);
+
+#define switch_aud_to_mplayer(set_pref) switch_aud_to_mplayerX(set_pref,"mplayer")
+#define switch_aud_to_mplayer2(set_pref) switch_aud_to_mplayerX(set_pref,"mplayer2")
+void switch_aud_to_mplayerX(boolean set_pref, const char *player);
+
 boolean prepare_to_play_foreign(void);
 boolean after_foreign_play(void);
 boolean check_file(const char *file_name, boolean check_exists);  ///< check if file exists
