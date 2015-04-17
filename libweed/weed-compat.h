@@ -59,8 +59,8 @@ extern "C"
 #include <weed/weed-palettes.h>
 #endif
 
-int fourccp_to_weedp (unsigned int fourcc, int bpp, int *interlaced, int *sampling, 
-		      int *sspace, int *clamping) {
+int fourccp_to_weedp(unsigned int fourcc, int bpp, int *interlaced, int *sampling,
+                     int *sspace, int *clamping) {
   // inputs are fourcc and bpp
   // returns int weed_palette
 
@@ -80,7 +80,7 @@ int fourccp_to_weedp (unsigned int fourcc, int bpp, int *interlaced, int *sampli
 
   switch (fourcc) {
 
-    // RGB formats
+  // RGB formats
 
   case 0x32524742: // BGR3
   case 0x33524742: // BGR3 - tested and OK
@@ -103,7 +103,7 @@ int fourccp_to_weedp (unsigned int fourcc, int bpp, int *interlaced, int *sampli
     break;
 
 
-    // YUV packed formats
+  // YUV packed formats
 
   case 0x56595549: // IUYV
     if (interlaced!=NULL) *interlaced=1;
@@ -116,7 +116,7 @@ int fourccp_to_weedp (unsigned int fourcc, int bpp, int *interlaced, int *sampli
   case 0x43594448: // HDYC
     if (sspace!=NULL) *sspace=WEED_YUV_SUBSPACE_BT709;
     return WEED_PALETTE_UYVY;
-  case 0x564E5955: // UYNV 	
+  case 0x564E5955: // UYNV
   case 0x59565955: // UYVY
   case 0x32323459: // Y422
   case 0x76757963: // cyuv - ???
@@ -133,7 +133,7 @@ int fourccp_to_weedp (unsigned int fourcc, int bpp, int *interlaced, int *sampli
     return WEED_PALETTE_A8;
 
 
-    // YUV planar formats
+  // YUV planar formats
   case 0x41565559: // YUVA
     return WEED_PALETTE_YUVA4444P;
     break;
@@ -161,7 +161,7 @@ int fourccp_to_weedp (unsigned int fourcc, int bpp, int *interlaced, int *sampli
     return WEED_PALETTE_YUV444P;
 
 
-    // known formats we cannot use
+  // known formats we cannot use
   case 0x50424752: // RGBP - palettised RGB
   case 0x4f424752: // RGB0 - 15 or 16 bit RGB
   case 0x51424752: // RGBQ - 15 or 16 bit RGB
@@ -177,7 +177,7 @@ int fourccp_to_weedp (unsigned int fourcc, int bpp, int *interlaced, int *sampli
   case 0x30343449: // I440 - 440 planar palette
   case 0x30343450: // J440 - 440 planar palette unclamped
 
-    // no match
+  // no match
   default:
     return WEED_PALETTE_END;
   }
@@ -199,7 +199,7 @@ int fourccp_to_weedp (unsigned int fourcc, int bpp, int *interlaced, int *sampli
 #ifdef HAVE_AVCODEC
 #ifdef HAVE_AVUTIL
 
-  // compatibility with libavcodec
+// compatibility with libavcodec
 
 #include <libavcodec/avcodec.h>
 #include <libavutil/pixfmt.h>
@@ -376,7 +376,7 @@ const AVCodecTag codec_bmp_tags[] = {
   { CODEC_ID_MPEG4,        MKTAG('X', 'V', 'I', 'D') },
   { CODEC_ID_MPEG4,        MKTAG('M', 'P', '4', 'S') },
   { CODEC_ID_MPEG4,        MKTAG('M', '4', 'S', '2') },
-  { CODEC_ID_MPEG4,        MKTAG( 4 ,  0 ,  0 ,  0 ) }, /* some broken avi use this */
+  { CODEC_ID_MPEG4,        MKTAG(4 ,  0 ,  0 ,  0) },   /* some broken avi use this */
   { CODEC_ID_MPEG4,        MKTAG('D', 'I', 'V', '1') },
   { CODEC_ID_MPEG4,        MKTAG('B', 'L', 'Z', '0') },
   { CODEC_ID_MPEG4,        MKTAG('m', 'p', '4', 'v') },
@@ -441,9 +441,9 @@ const AVCodecTag codec_bmp_tags[] = {
   { CODEC_ID_MPEG1VIDEO,   MKTAG('P', 'I', 'M', '1') },
   { CODEC_ID_MPEG2VIDEO,   MKTAG('P', 'I', 'M', '2') },
   { CODEC_ID_MPEG1VIDEO,   MKTAG('V', 'C', 'R', '2') },
-  { CODEC_ID_MPEG1VIDEO,   MKTAG( 1 ,  0 ,  0 ,  16) },
-  { CODEC_ID_MPEG2VIDEO,   MKTAG( 2 ,  0 ,  0 ,  16) },
-  { CODEC_ID_MPEG4,        MKTAG( 4 ,  0 ,  0 ,  16) },
+  { CODEC_ID_MPEG1VIDEO,   MKTAG(1 ,  0 ,  0 ,  16) },
+  { CODEC_ID_MPEG2VIDEO,   MKTAG(2 ,  0 ,  0 ,  16) },
+  { CODEC_ID_MPEG4,        MKTAG(4 ,  0 ,  0 ,  16) },
   { CODEC_ID_MPEG2VIDEO,   MKTAG('D', 'V', 'R', ' ') },
   { CODEC_ID_MPEG2VIDEO,   MKTAG('M', 'M', 'E', 'S') },
   { CODEC_ID_MPEG2VIDEO,   MKTAG('L', 'M', 'P', '2') }, /* Lead MPEG2 in avi */
@@ -473,8 +473,8 @@ const AVCodecTag codec_bmp_tags[] = {
   { CODEC_ID_HUFFYUV,      MKTAG('H', 'F', 'Y', 'U') },
   { CODEC_ID_FFVHUFF,      MKTAG('F', 'F', 'V', 'H') },
   { CODEC_ID_CYUV,         MKTAG('C', 'Y', 'U', 'V') },
-  { CODEC_ID_RAWVIDEO,     MKTAG( 0 ,  0 ,  0 ,  0 ) },
-  { CODEC_ID_RAWVIDEO,     MKTAG( 3 ,  0 ,  0 ,  0 ) },
+  { CODEC_ID_RAWVIDEO,     MKTAG(0 ,  0 ,  0 ,  0) },
+  { CODEC_ID_RAWVIDEO,     MKTAG(3 ,  0 ,  0 ,  0) },
   { CODEC_ID_RAWVIDEO,     MKTAG('I', '4', '2', '0') },
   { CODEC_ID_RAWVIDEO,     MKTAG('Y', 'U', 'Y', '2') },
   { CODEC_ID_RAWVIDEO,     MKTAG('Y', '4', '2', '2') },
@@ -513,8 +513,8 @@ const AVCodecTag codec_bmp_tags[] = {
   { CODEC_ID_XAN_WC4,      MKTAG('X', 'x', 'a', 'n') },
   { CODEC_ID_MIMIC,        MKTAG('L', 'M', '2', '0') },
   { CODEC_ID_MSRLE,        MKTAG('m', 'r', 'l', 'e') },
-  { CODEC_ID_MSRLE,        MKTAG( 1 ,  0 ,  0 ,  0 ) },
-  { CODEC_ID_MSRLE,        MKTAG( 2 ,  0 ,  0 ,  0 ) },
+  { CODEC_ID_MSRLE,        MKTAG(1 ,  0 ,  0 ,  0) },
+  { CODEC_ID_MSRLE,        MKTAG(2 ,  0 ,  0 ,  0) },
   { CODEC_ID_MSVIDEO1,     MKTAG('M', 'S', 'V', 'C') },
   { CODEC_ID_MSVIDEO1,     MKTAG('m', 's', 'v', 'c') },
   { CODEC_ID_MSVIDEO1,     MKTAG('C', 'R', 'A', 'M') },
@@ -623,7 +623,7 @@ enum PixelFormat weed_palette_to_avi_pix_fmt(int pal, int *clamped) {
 
   switch (pal) {
   case WEED_PALETTE_RGB24:
-    return PIX_FMT_RGB24;
+      return PIX_FMT_RGB24;
   case WEED_PALETTE_BGR24:
     return PIX_FMT_BGR24;
   case WEED_PALETTE_RGBA32:
